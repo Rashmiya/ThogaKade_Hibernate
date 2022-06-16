@@ -47,6 +47,7 @@ public class AppInitializer {
         I1.setDescription("Samba Rice 10Kg");
         I1.setUnitPrice(350);
         I1.setQtyOnHand(50);
+
 //===========================
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
@@ -55,11 +56,12 @@ public class AppInitializer {
         session.save(c1);
         session.save(c2);
 
+        session.save(O1);
+        session.save(O2);
+
         session.save(I1);
         session.save(I2);
 
-        session.save(O1);
-        session.save(O2);
 //===========================
         Customer c001 = session.get(Customer.class, "C001");
         Customer c002 = session.get(Customer.class, "C002");
@@ -67,17 +69,27 @@ public class AppInitializer {
         Order o001 = session.get(Order.class, "O001");
         Order o002 = session.get(Order.class, "O002");
 
+        Item i001 = session.get(Item.class, "I001");
+        Item i002 = session.get(Item.class, "I002");
+
+
         System.out.println(c001);
         System.out.println(c002);
 
         System.out.println(o001);
         System.out.println(o002);
+
+        System.out.println(i001);
+        System.out.println(i002);
 //===========================
         c1.setAddress("meepe");
         session.update(c1);
 
         O1.setCustomer(c2);
         session.update(c2);
+
+        I1.setQtyOnHand(75);
+        session.update(I1);
 //===========================
         Customer c003 = session.get(Customer.class,"C002");
         session.delete(c003);
@@ -85,6 +97,10 @@ public class AppInitializer {
         Order o1 = session.get(Order.class,"O001");
         session.delete(o1);
 
+        Item i1 = session.get(Item.class,"I002");
+        session.delete(i1);
+        
+//===========================
         transaction.commit();
         session.close();
     }
