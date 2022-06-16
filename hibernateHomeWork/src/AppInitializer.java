@@ -49,8 +49,8 @@ public class AppInitializer {
         I1.setUnitPrice(350);
         I1.setQtyOnHand(50);
 //===========================
-        new OrderDetail("OD001",O1,I1,5,I1.getUnitPrice());
-        new OrderDetail("OD002",O1,I1,7,I1.getUnitPrice());
+        OrderDetail od001 = new OrderDetail("OD001", O1, I1, 5, I1.getUnitPrice());
+        OrderDetail od002 = new OrderDetail("OD002", O1, I1, 7, I1.getUnitPrice());
 //===========================
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
@@ -65,6 +65,9 @@ public class AppInitializer {
         session.save(I1);
         session.save(I2);
 
+        session.save(od001);
+        session.save(od002);
+
 //===========================
         Customer c001 = session.get(Customer.class, "C001");
         Customer c002 = session.get(Customer.class, "C002");
@@ -75,6 +78,8 @@ public class AppInitializer {
         Item i001 = session.get(Item.class, "I001");
         Item i002 = session.get(Item.class, "I002");
 
+        OrderDetail od0011 = session.get(OrderDetail.class, "od001");
+        OrderDetail od0012 = session.get(OrderDetail.class, "od002");
 
         System.out.println(c001);
         System.out.println(c002);
@@ -84,6 +89,9 @@ public class AppInitializer {
 
         System.out.println(i001);
         System.out.println(i002);
+
+        System.out.println(od0011);
+        System.out.println(od0012);
 //===========================
         c1.setAddress("meepe");
         session.update(c1);
@@ -93,6 +101,9 @@ public class AppInitializer {
 
         I1.setQtyOnHand(75);
         session.update(I1);
+
+        od001.setOderDetail_qty(7);
+        session.update(od001);
 //===========================
         Customer c003 = session.get(Customer.class,"C002");
         session.delete(c003);
@@ -103,6 +114,8 @@ public class AppInitializer {
         Item i1 = session.get(Item.class,"I002");
         session.delete(i1);
 
+        OrderDetail d1 = session.get(OrderDetail.class,"od002");
+        session.delete(d1);
 //===========================
         transaction.commit();
         session.close();
