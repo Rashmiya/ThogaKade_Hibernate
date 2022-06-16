@@ -1,6 +1,7 @@
 import lk.ijse.hibernate.entity.Customer;
 import lk.ijse.hibernate.entity.Item;
 import lk.ijse.hibernate.entity.Order;
+import lk.ijse.hibernate.entity.OrderDetail;
 import lk.ijse.hibernate.util.FactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -47,7 +48,9 @@ public class AppInitializer {
         I1.setDescription("Samba Rice 10Kg");
         I1.setUnitPrice(350);
         I1.setQtyOnHand(50);
-
+//===========================
+        new OrderDetail("OD001",O1,I1,5,I1.getUnitPrice());
+        new OrderDetail("OD002",O1,I1,7,I1.getUnitPrice());
 //===========================
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
@@ -99,7 +102,7 @@ public class AppInitializer {
 
         Item i1 = session.get(Item.class,"I002");
         session.delete(i1);
-        
+
 //===========================
         transaction.commit();
         session.close();
